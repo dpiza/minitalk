@@ -6,17 +6,19 @@
 /*   By: dpiza <dpiza@student.42sp.org.br>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 14:55:31 by dpiza             #+#    #+#             */
-/*   Updated: 2021/11/03 02:18:05 by dpiza            ###   ########.fr       */
+/*   Updated: 2021/11/03 04:34:31 by dpiza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minitalk.h"
 
-void	signal_handler(int signum)
+void	signal_handler(int signum, siginfo_t *info, void *ucontext)
 {
 	static unsigned char	c;
 	static int				i;
 
+	(void)ucontext;
+	(void)info;
 	if (signum == SIGUSR1)
 		c = c << 1 | 1;
 	else
@@ -32,9 +34,13 @@ void	signal_handler(int signum)
 
 int	main(void)
 {
+	struct sigaction	act;
+
 	ft_printf("PID: %d\n", getpid());
-	signal(SIGUSR1, signal_handler);
-	signal(SIGUSR2, signal_handler);
+	act.sa_sigaction = signal_handler;
+	act.sa_flags = SA_SIGINFO;
+	sigaction(SIGUSR1, &act, NULL);
+	sigaction(SIGUSR2, &act, NULL);
 	while (1)
 		pause();
 	return (0);
