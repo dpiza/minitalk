@@ -31,9 +31,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 all: $(NAME)
 
-Valgrind: $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all \
-	--log-file=valgrind-out.txt ./server
+bonus: all
 
 $(NAME): $(NAMESRV) $(NAMECLT)
 
