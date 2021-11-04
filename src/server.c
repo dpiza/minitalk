@@ -6,7 +6,7 @@
 /*   By: dpiza <dpiza@student.42sp.org.br>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 14:55:31 by dpiza             #+#    #+#             */
-/*   Updated: 2021/11/04 03:17:07 by dpiza            ###   ########.fr       */
+/*   Updated: 2021/11/04 03:33:10 by dpiza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	signal_handler(int signum, siginfo_t *info, void *ucontext)
 		c = 0;
 	}
 	kill (info->si_pid, SIGUSR1);
-	info->si_pid = 0;
 }
 
 int	main(void)
