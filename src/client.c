@@ -6,7 +6,7 @@
 /*   By: dpiza <dpiza@student.42sp.org.br>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 18:27:58 by dpiza             #+#    #+#             */
-/*   Updated: 2021/11/04 03:15:17 by dpiza            ###   ########.fr       */
+/*   Updated: 2021/11/04 03:31:07 by dpiza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ void	send_signal(int pid, char *str)
 int	main(int argc, char **argv)
 {
 	if (argc < 3)
-		return (0);
+	{
+		ft_printf("Usage: ./client [SRV_PID] [STRING]\n");
+		return (EXIT_FAILURE);
+	}
 	send_signal(ft_atoi(argv[1]), argv[2]);
 	return (0);
 }
