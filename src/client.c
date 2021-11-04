@@ -6,7 +6,7 @@
 /*   By: dpiza <dpiza@student.42sp.org.br>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 18:27:58 by dpiza             #+#    #+#             */
-/*   Updated: 2021/11/03 23:45:41 by dpiza            ###   ########.fr       */
+/*   Updated: 2021/11/04 03:15:17 by dpiza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ void	acknowledge(int signum)
 
 void	send_signal(int pid, char *str)
 {
-	int	i;
+	int		i;
+	size_t	len;
 
 	i = 0;
-	while (*str)
+	len = ft_strlen(str) + 1;
+	while (len--)
 	{
 		i = 8;
 		while (i-- > 0)

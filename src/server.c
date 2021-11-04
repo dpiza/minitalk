@@ -6,7 +6,7 @@
 /*   By: dpiza <dpiza@student.42sp.org.br>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 14:55:31 by dpiza             #+#    #+#             */
-/*   Updated: 2021/11/03 23:43:29 by dpiza            ###   ########.fr       */
+/*   Updated: 2021/11/04 03:17:07 by dpiza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void	signal_handler(int signum, siginfo_t *info, void *ucontext)
 	i++;
 	if (i == 8)
 	{
-		ft_printf("%c", c);
+		write(1, &c, 1);
+		if (!c)
+			write(1, "\n", 2);
 		i = 0;
 		c = 0;
 	}
