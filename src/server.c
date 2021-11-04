@@ -6,7 +6,7 @@
 /*   By: dpiza <dpiza@student.42sp.org.br>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 14:55:31 by dpiza             #+#    #+#             */
-/*   Updated: 2021/11/04 03:33:10 by dpiza            ###   ########.fr       */
+/*   Updated: 2021/11/04 21:26:17 by dpiza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,19 @@ void	signal_handler(int signum, siginfo_t *info, void *ucontext)
 	(void)ucontext;
 	if (signum == SIGUSR1)
 		c = c << 1 | 1;
-	else
+	else if (signum == SIGUSR2)
 		c = c << 1 | 0;
 	i++;
 	if (i == 8)
 	{
-		write(1, &c, 1);
 		if (!c)
 			write(1, "\n", 2);
+		else
+			write(1, &c, 1);
 		i = 0;
 		c = 0;
 	}
+	usleep(100);
 	kill (info->si_pid, SIGUSR1);
 }
 
