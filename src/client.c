@@ -6,7 +6,7 @@
 /*   By: dpiza <dpiza@student.42sp.org.br>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 18:27:58 by dpiza             #+#    #+#             */
-/*   Updated: 2021/11/04 21:24:06 by dpiza            ###   ########.fr       */
+/*   Updated: 2021/11/04 22:35:07 by dpiza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@ void	acknowledge(int signum)
 {
 	(void)signum;
 	g_ack = 1;
+}
+
+void	bit_one(int pid)
+{
+	if (kill (pid, SIGUSR1) < 0)
+		exit_err("Invalid PID.\n");
+}
+
+void	bit_zero(int pid)
+{
+	if (kill (pid, SIGUSR2) < 0)
+		exit_err("Invalid PID.\n");
 }
 
 void	send_signal(int pid, char *str)
@@ -33,9 +45,9 @@ void	send_signal(int pid, char *str)
 		while (i-- > 0)
 		{
 			if (*str & 1 << i)
-				kill (pid, SIGUSR1);
+				bit_one(pid);
 			else
-				kill (pid, SIGUSR2);
+				bit_zero(pid);
 			while (!g_ack)
 				pause();
 			g_ack = 0;
@@ -47,10 +59,7 @@ void	send_signal(int pid, char *str)
 int	main(int argc, char **argv)
 {
 	if (argc < 3)
-	{
-		ft_printf("Usage: ./client [SRV_PID] [STRING]\n");
-		return (EXIT_FAILURE);
-	}
+		exit_err("Usage: ./client [SRV_PID] [STRING]\n");
 	signal(SIGUSR1, acknowledge);
 	send_signal(ft_atoi(argv[1]), argv[2]);
 	return (0);

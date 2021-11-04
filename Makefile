@@ -17,7 +17,7 @@ SRV_FILES = server.c
 SRV_OBJS_FILES = $(SRV_FILES:.c=.o)
 SRV_OBJS = $(addprefix $(OBJS_DIR)/, $(SRV_OBJS_FILES))
 
-CLT_FILES = client.c
+CLT_FILES = client.c err.c
 CLT_OBJS_FILES = $(CLT_FILES:.c=.o)
 CLT_OBJS = $(addprefix $(OBJS_DIR)/, $(CLT_OBJS_FILES))
 
